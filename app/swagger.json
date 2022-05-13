@@ -1,0 +1,153 @@
+{
+   "openapi": "3.0.0",
+   "info":{
+      "title": "Car Management API Elisamril Sinaga",
+      "version": "0.0.1"
+   },
+   "paths":{
+      "/api/v1/register":{
+         "post": {
+            "responses":{
+               "201":{},
+               "400":{},
+               "401":{},
+               "422":{},
+               "500":{}
+            }
+         }
+      },
+      "/api/v1/login":{
+         "post": {
+            "responses":{
+               "201":{},
+               "400":{},
+               "401":{},
+               "422":{},
+               "500":{}
+            }
+         }
+      },
+      "/api/v1/user/:id": {
+         "get": {
+            "responses":{
+               "200":{},
+               "403":{},
+               "404":{}
+            }
+         },
+         "put": {
+            "responses":{
+               "200":{},
+               "400":{},
+               "403":{},
+               "404":{},
+               "422":{}
+            } 
+         },
+         "delete": {
+            "responses":{
+               "200":{},
+               "403":{},
+               "404":{}
+            } 
+         }
+      },
+      "/api/v1/users": {
+         "get": {
+            "responses":{
+               "200":{
+                  "description": "List Users",
+                  "content": {
+                     "application/json":{
+                        "schema": {}
+                     }
+                  }
+               }
+            } 
+         },
+         "post": {
+            "responses":{
+               "201":{},
+               "400":{},
+               "401":{},
+               "422":{},
+               "500":{
+                  "description": "Cannot post because of an error on the server",
+                  "content": {
+                     "application/json":{
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "status":{
+                                 "type": "string",
+                                 "example": "ERROR"
+                              },
+                              "data": {
+                                 "type": "object",
+                                 "properties": {
+                                    "name": {
+                                       "type": "string",
+                                       "example": "INTERNAL_SERVER_ERROR"
+                                    },
+                                    "message":{
+                                       "type": "string",
+                                       "example": "Something is error"
+                                    },
+                                    "stack":{
+                                       "type": "string",
+                                       "example": "app/controllers/profileControlle.js:64"
+                                    }
+                                 }
+                              }
+
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/v1/car/:id": {
+         "get": {
+            "responses":{
+               "200":{},
+               "403":{},
+               "404":{}
+            }
+         },
+         "put": {
+            "responses":{
+               "200":{},
+               "400":{},
+               "403":{},
+               "404":{},
+               "422":{}
+            } 
+         },
+         "delete": {
+            "responses":{
+               "200":{},
+               "403":{},
+               "404":{}
+            } 
+         }
+      },
+      "/api/v1/cars": {
+         "get": {
+            "responses":{
+               "200":{}
+            } 
+         },
+         "post": {
+            "responses":{
+               "201":{},
+               "400":{},
+               "401":{},
+               "422":{},
+               "500":{}
+            } 
+         }
+      }
+   }
+}
