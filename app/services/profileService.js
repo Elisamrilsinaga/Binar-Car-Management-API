@@ -5,6 +5,10 @@ module.exports = {
     return profileRepository.create(requestBody);
   },
 
+  login(requestBody){
+    return profileRepository.login(requestBody);
+  },
+
   update(id, requestBody) {
     return profileRepository.update(id, requestBody);
   },
@@ -16,23 +20,11 @@ module.exports = {
   async list() {
     try {
       const posts = await profileRepository.findAll();
-      // const postCount = await profileRepository.getTotalPost();
+      const postCount = await profileRepository.getTotalProfile();
 
       return {
         data: posts,
-      };
-    } catch (err) {
-      throw err;
-    }
-  },
-
-  async findAlllist() {
-    try {
-      const posts = await profileRepository.findAll();
-      // const postCount = await profileRepo.getTotalPost();
-
-      return {
-        data: posts,
+        count: postCount
       };
     } catch (err) {
       throw err;

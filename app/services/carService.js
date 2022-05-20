@@ -16,28 +16,28 @@ module.exports = {
   async list() {
     try {
       const posts = await carRepository.findAll();
-      // const postCount = await carRepository.getTotalPost();
+      const postCount = await carRepository.getTotalCars();
 
       return {
         data: posts,
+        count: postCount,
       };
     } catch (err) {
       throw err;
     }
   },
+  // async findAlllist() {
+  //   try {
+  //     const posts = await carRepository.findAll();
+  //     // const postCount = await userRepo.getTotalPost();
 
-  async findAlllist() {
-    try {
-      const posts = await carRepository.findAll();
-      // const postCount = await userRepo.getTotalPost();
-
-      return {
-        data: posts,
-      };
-    } catch (err) {
-      throw err;
-    }
-  },
+  //     return {
+  //       data: posts,
+  //     };
+  //   } catch (err) {
+  //     throw err;
+  //   }
+  // },
 
   get(id) {
     return carRepository.find(id);

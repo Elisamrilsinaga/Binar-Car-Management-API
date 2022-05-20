@@ -5,6 +5,12 @@ module.exports = {
     return Profile.create(createArgs);
   },
 
+  login(email){
+    return Profile.findOne({
+      where: { email },
+    })
+  },
+
   update(id, updateArgs) {
     return Profile.update(updateArgs, {
       where: {

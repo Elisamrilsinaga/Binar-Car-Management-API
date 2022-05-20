@@ -4,150 +4,522 @@
       "title": "Car Management API Elisamril Sinaga",
       "version": "0.0.1"
    },
+   
+   "tags": [
+      {
+        "name": "Register & Login"
+      },
+      {
+        "name": "List Car"
+      }
+    ],
+    
    "paths":{
-      "/api/v1/register":{
+      "/api/v1/user/register":{
          "post": {
-            "responses":{
-               "201":{},
-               "400":{},
-               "401":{},
-               "422":{},
-               "500":{}
-            }
-         }
-      },
-      "/api/v1/login":{
-         "post": {
-            "responses":{
-               "201":{},
-               "400":{},
-               "401":{},
-               "422":{},
-               "500":{}
-            }
-         }
-      },
-      "/api/v1/user/:id": {
-         "get": {
-            "responses":{
-               "200":{},
-               "403":{},
-               "404":{}
-            }
-         },
-         "put": {
-            "responses":{
-               "200":{},
-               "400":{},
-               "403":{},
-               "404":{},
-               "422":{}
-            } 
-         },
-         "delete": {
-            "responses":{
-               "200":{},
-               "403":{},
-               "404":{}
-            } 
-         }
-      },
-      "/api/v1/users": {
-         "get": {
-            "responses":{
-               "200":{
-                  "description": "List Users",
-                  "content": {
-                     "application/json":{
-                        "schema": {}
-                     }
-                  }
-               }
-            } 
-         },
-         "post": {
-            "responses":{
-               "201":{},
-               "400":{},
-               "401":{},
-               "422":{},
-               "500":{
-                  "description": "Cannot post because of an error on the server",
-                  "content": {
-                     "application/json":{
-                        "schema": {
-                           "type": "object",
-                           "properties": {
-                              "status":{
-                                 "type": "string",
-                                 "example": "ERROR"
-                              },
-                              "data": {
-                                 "type": "object",
-                                 "properties": {
-                                    "name": {
-                                       "type": "string",
-                                       "example": "INTERNAL_SERVER_ERROR"
-                                    },
-                                    "message":{
-                                       "type": "string",
-                                       "example": "Something is error"
-                                    },
-                                    "stack":{
-                                       "type": "string",
-                                       "example": "app/controllers/profileControlle.js:64"
-                                    }
-                                 }
-                              }
 
-                           }
+            "tags": ["Register & Login"],
+            "summary": "Register as Superadmin",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string",
+                                    "example": "yourName"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "example": "yourMail@gmail.com"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "example": "yourPassword"
+                                }
+                            }
                         }
-                     }
-                  }
+                    }
+                }
+            },
+
+            "responses":{
+               "201": {
+                   "description": "Success Register as SuperAdmin"
+               },
+               "400": {
+                   "description": ""
+               },
+               "401": {
+                   "description": ""
                }
             }
          }
       },
-      "/api/v1/car/:id": {
-         "get": {
-            "responses":{
-               "200":{},
-               "403":{},
-               "404":{}
-            }
-         },
-         "put": {
-            "responses":{
-               "200":{},
-               "400":{},
-               "403":{},
-               "404":{},
-               "422":{}
-            } 
-         },
-         "delete": {
-            "responses":{
-               "200":{},
-               "403":{},
-               "404":{}
-            } 
+      "/api/v1/user/login":{
+         "post": {
+             "tags": ["Register & Login"],
+             "summary": "Login User",
+             "requestBody": {
+                 "content": {
+                     "application/json": {
+                         "schema": {
+                             "type": "object",
+                             "properties": {
+                                 "email": {
+                                     "type": "string",
+                                     "example": "yourMail@gmail.com"
+                                 },
+                                 "password": {
+                                     "type": "string",
+                                     "example": "yourPassword"
+                                 }
+                             }
+                         }
+                     }
+                 }
+             },
+             "responses": {
+                 "201": {
+                     "description": "Success Login"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
          }
       },
+
+      "/api/v1/user": {
+         "get": {
+             "tags": ["Register & Login"],
+             "summary": "List of Users",
+             "security": [{
+                 "bearerAuth": []
+             }],
+             "responses": {
+                 "201": {
+                     "description": "OK"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         }
+      },
+
+      "/api/v1/user/profile": {
+         "get": {
+             "tags": ["Register & Login"],
+             "summary": "Current User Profile",
+             "security": [{
+                 "bearerAuth": []
+             }],
+             "responses": {
+                 "201": {
+                     "description": "OK"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         }
+      },
+
+      "/api/v1/user/create": {
+         "post" : {
+             "tags": ["Register & Login"],
+             "security": [{
+                 "bearerAuth": []
+             }],
+             "summary": "Register by Superadmin and Admin",
+             "requestBody": {
+                 "content": {
+                     "application/json": {
+                         "schema": {
+                             "type": "object",
+                             "properties": {
+                                 "username": {
+                                     "type": "string",
+                                     "example": "yourName"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "yourMail@gmail.com"
+                                    },
+                                 "password": {
+                                     "type": "string",
+                                     "example": "yourPassword"
+                                 }
+                             }
+                         }
+                     }
+                 }
+             },
+             "responses": {
+                 "201": {
+                     "description": "Success Register a Member"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         }
+      },
+
+      "/api/v1/user/{id}": {
+         "get" : {
+             "tags": ["Register & Login"],
+             "summary": "Show 1 User's Data By Superadmin & Admin",
+             "security": [{
+                 "bearerAuth": []
+             }], 
+               "parameters": [
+                 {
+                   "in": "path",
+                   "name": "id",
+                   "description": "User ID",
+                   "required": true  
+                 }
+               ],  
+               
+             "responses": {
+                 "200": {
+                     "description": "Success"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         },
+         "post": {
+             "tags": ["Register & Login"],
+             "summary": "Update Role to Admin",
+             "security": [{
+                 "bearerAuth": []
+             }], 
+               "parameters": [
+                 {
+                   "in": "path",
+                   "name": "id",
+                   "description": "User ID",
+                   "required": true  
+                 }
+               ],
+               "responses": {
+                 "200": {
+                     "description": "Success"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             } 
+         }
+         ,
+         "put" : {
+             "tags": ["Register & Login"],
+             "summary": "Update by Superadmin",
+             "security": [{
+                 "bearerAuth": []
+             }], 
+               "parameters": [
+                 {
+                   "in": "path",
+                   "name": "id",
+                   "description": "User ID",
+                   "required": true  
+                 }
+               ], 
+               "requestBody": {
+                 "content": {
+                     "application/json": {
+                         "schema": {
+                             "type": "object",
+                             "properties": {
+                                 "username": {
+                                     "type": "string",
+                                     "example": "yourName"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "yourMail@gmail.com"
+                                    },
+                                 "password": {
+                                     "type": "string",
+                                     "example": "yourPassword"
+                                 }
+                             } 
+                         }
+                     }
+                 }
+             }, 
+             
+             "responses": {
+                 "200": {
+                     "description": "Success"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         },
+         "delete" : {
+             "tags": ["Register & Login"],
+             "summary": "Delete by Superadmin",
+             "security": [{
+                 "bearerAuth": []
+             }], 
+               "parameters": [
+                 {
+                   "in": "path",
+                   "name": "id",
+                   "description": "User ID",
+                   "required": true  
+                 }
+               ],  
+             
+             "responses": {
+                 "204": {
+                     "description": "Success"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         }
+     },
+
       "/api/v1/cars": {
          "get": {
-            "responses":{
-               "200":{}
-            } 
+             "tags": ["List Car"],
+             "summary": "List Cars",
+             "security": [{
+                 "bearerAuth": []
+             }],
+             "responses": {
+                 "201": {
+                     "description": "OK"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
          },
          "post": {
-            "responses":{
-               "201":{},
-               "400":{},
-               "401":{},
-               "422":{},
-               "500":{}
-            } 
+             "tags": ["List Car"],
+             "summary": "Create Car",
+             "security": [{
+                 "bearerAuth": []
+             }],
+             "requestBody": {
+                 "content": {
+                     "application/json": {
+                         "schema": {
+                             "type": "object",
+                             "properties": {
+                                 "name": {
+                                     "type": "string",
+                                     "example": "Honda"
+                                 },
+                                 "type": {
+                                     "type": "string",
+                                     "example": "Small"
+                                 },
+                                 "price": {
+                                     "type": "string",
+                                     "example": "30000"
+                                 },
+                                 "image": {
+                                     "type": "string",
+                                     "example": "https://images.unsplash.com/photo-1605816988069-b11383b50717?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=888"
+                                 }
+                             }
+                         }
+                     }
+                 }
+             },
+             "responses": {
+                 "201": {
+                     "description": "Success adding more car"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
          }
+      },
+
+      "/api/v1/cars/{id}": {
+         "get": {
+             "tags": ["List Car"],
+             "summary": "Show Car by Id",
+             "security": [{
+                 "bearerAuth": []
+             }],
+             "parameters": [
+                 {
+                   "in": "path",
+                   "name": "id",
+                   "description": "User ID",
+                   "required": true  
+                 }
+               ],
+             "responses": {
+                 "201": {
+                     "description": "OK"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         },
+        
+         "put": {
+             "tags": ["List Car"],
+             "summary": "Update Car by Id",
+             "security": [{
+                 "bearerAuth": []
+             }],
+             "parameters": [
+                 {
+                   "in": "path",
+                   "name": "id",
+                   "description": "User ID",
+                   "required": true  
+                 }
+               ],
+             "requestBody": {
+                 "content": {
+                     "application/json": {
+                         "schema": {
+                             "type": "object", 
+                             "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "Honda"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "example": "Small"
+                                },
+                                "price": {
+                                    "type": "string",
+                                    "example": "30000"
+                                },
+                                "image": {
+                                    "type": "string",
+                                    "example": "https://images.unsplash.com/photo-1605816988069-b11383b50717?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=888"
+                                }
+                             }
+                         }
+                     }
+                 }
+             },
+             "responses": {
+                 "201": {
+                     "description": "Success adding more car"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         },
+
+         "delete": {
+             "tags": ["List Car"],
+             "summary": "Delete Car by Id",
+             "security": [{
+                 "bearerAuth": []
+             }],
+             "parameters": [
+                 {
+                   "in": "path",
+                   "name": "id",
+                   "description": "User ID",
+                   "required": true  
+                 }
+               ],
+             "responses": {
+                 "201": {
+                     "description": "Success deleting data"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         }
+     },
+
+     "/api/v1/cars/history": {
+         "get": {
+             "tags": ["Delete History"],
+             "summary": "Delete History",
+             "security": [{
+                 "bearerAuth": []
+             }],
+             "responses": {
+                 "201": {
+                     "description": "OK"
+                 },
+                 "400": {
+                     "description": ""
+                 },
+                 "401": {
+                     "description": ""
+                 }
+             }
+         }
+     }
+
+   },
+   "components": {
+      "securitySchemes": {
+          "bearerAuth": {
+              "in": "header",
+              "type": "http",
+              "scheme": "bearer",
+              "bearerFormat": "JWT"
+          }
       }
-   }
+  }
 }

@@ -1,9 +1,9 @@
 const express = require("express");
-const swaggerUi = require("swagger-ui-express");
+// const swaggerUi = require("swagger-ui-express");
 // const morgan = require("morgan");
 const router = require("../config/router");
-const redoc = require("redoc-express");
-const swaggerDocument = require("./swagger.json");
+// const redoc = require("redoc-express");
+// const swaggerDocument = require("./swagger.json");
 const app = express();
 
 /** Install request logger */
